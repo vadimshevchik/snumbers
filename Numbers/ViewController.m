@@ -83,8 +83,8 @@
 }
 
 - (void)generateNumbersForLimit:(NSInteger)limit {
-    self.textField.text = @"";
     if (limit > 1) {
+        self.textView.text = nil;
         [self.textField resignFirstResponder];
         [self.indicatorView startAnimating];
         self.generateButton.enabled = NO;
@@ -110,10 +110,12 @@
                         counter = limit - (limit - item.limit);
                         [result addObjectsFromArray:item.result];
                     }
-                    else if (limit < item.limit){
+                    else if (limit < item.limit) {
+//                        this not correct work, need code refactoring
                         counter = limit;
                         blockLimit = item.limit;
                         more = YES;
+//                        ==========
                     }
                 }
             }
