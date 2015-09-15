@@ -82,7 +82,7 @@ static NSString *const HistoryCellID = @"HistoryCellID";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self detailControllerWithItem:self.history[indexPath.row]];
 }
 

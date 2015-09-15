@@ -12,7 +12,7 @@
 
 @property (copy, nonatomic) NSString *date;
 @property (nonatomic) NSInteger limit;
-@property (copy, nonatomic) NSArray *result;
+@property (strong, nonatomic) NSArray *result;
 
 + (HistoryItem *)itemWithLimit:(NSInteger)limit result:(NSArray *)result;
 

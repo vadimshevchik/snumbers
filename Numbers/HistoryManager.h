@@ -21,8 +21,4 @@
 - (void)removeItem:(HistoryItem *)item;
 - (HistoryItem *)cacheDataForLimit:(NSInteger)limit;
 
-//
-- (BOOL)existInHistory:(NSInteger)limit;
-- (NSArray *)resultForLimit:(NSInteger)limit;
-
 @end

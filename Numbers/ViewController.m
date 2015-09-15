@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "HistoryViewController.h"
-#import "DetailViewController.h"
 
 #import "HistoryItem.h"
 #import "HistoryManager.h"
@@ -34,34 +33,21 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (void)createActivityIndicator {
-    self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.indicatorView.frame = CGRectMake(0.0f, 0.0f, 32.0f, 32.0f);
-    self.indicatorView.color = [UIColor darkGrayColor];
     self.indicatorView.hidesWhenStopped = YES;
     self.navigationItem.titleView = self.indicatorView;
 }
 
 - (UIToolbar *)createDoneButton {
-    
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-
+    toolbar.barStyle = UIBarStyleDefault;
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Скрыть" style:UIBarButtonItemStylePlain target:self action:@selector(doneEnterLimitAction:)];
@@ -74,30 +60,6 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"История" style:UIBarButtonItemStylePlain target:self action:@selector(historyAction:)];
     
     return rightItem;
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    double duration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
-    [UIView animateWithDuration:duration animations:^{
-//        CGRect tableViewRect = self.tableView.frame;
-//        tableViewRect.size.height = self.view.frame.size.height - keyboardSize.height;
-//        self.tableView.frame = tableViewRect;
-    }];
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification
-{
-    double duration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
-    [UIView animateWithDuration:duration animations:^{
-//        CGRect viewRect = self.view.frame;
-////        viewRect.size.height += ;
-//        self.view.frame = tableViewRect;
-    }];
 }
 
 - (void)doneEnterLimitAction:(UIButton *)button {
@@ -121,8 +83,8 @@
 }
 
 - (void)generateNumbersForLimit:(NSInteger)limit {
+    self.textField.text = @"";
     if (limit > 1) {
-        self.textView.text = @"";
         [self.textField resignFirstResponder];
         [self.indicatorView startAnimating];
         self.generateButton.enabled = NO;
@@ -150,7 +112,7 @@
                     }
                     else if (limit < item.limit){
                         counter = limit;
-                        blockLimit = item.limit; //257827
+                        blockLimit = item.limit;
                         more = YES;
                     }
                 }
@@ -159,18 +121,18 @@
             if (needGenerated) {
                 for (NSInteger i = counter; i < blockLimit; i++) {
                     
-                    NSInteger d = 0;
+                    NSInteger repeats = 0;
                     
                     for (int c = 1; c <= i; c++) {
                         if (i%c == 0 || i%c == i) {
-                            d++;
-                            if (d > 2) {
+                            repeats++;
+                            if (repeats > 2) {
                                 break;
                             }
                         }
                     }
                     
-                    if (d == 2) {
+                    if (repeats == 2) {
                         [result addObject:@(i)];
                     }
                 }
@@ -186,7 +148,6 @@
                 [temp removeObjectsAtIndexes:set];
                 
                 result = temp;
-                
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -199,13 +160,6 @@
             
         });
     }
-    else {
-        self.textField.text = @"";
-    }
-}
-
-- (void)showHistoryResult {
-    
 }
 
 #pragma mark - UITextFieldDelegate

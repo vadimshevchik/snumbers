@@ -73,8 +73,6 @@
 
 - (HistoryItem *)cacheDataForLimit:(NSInteger)limit {
     if ([self.history count]) {
-
-//        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"limit"ascending:YES];
         NSArray *sortedHistory = [self.history sortedArrayUsingDescriptors:[NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"limit"ascending:YES]]];
         
         HistoryItem *min = [sortedHistory firstObject];
@@ -110,25 +108,6 @@
     return nil;
 }
 
-// --- del
-- (BOOL)existInHistory:(NSInteger)limit {
-    for (HistoryItem *item in self.history) {
-        if (item.limit == limit) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (NSArray *)resultForLimit:(NSInteger)limit {
-    for (HistoryItem *item in self.history) {
-        if (item.limit == limit) {
-            return item.result;
-        }
-    }
-    return [NSArray new];
-}
-// ----- del
 - (void)removeItem:(HistoryItem *)item {
     if (!item) {
         return;
