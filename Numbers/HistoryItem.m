@@ -19,7 +19,7 @@
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super init];
     if (self) {
-        self.date = [coder decodeObjectForKey:@"date"];
+        _date = [coder decodeObjectForKey:@"date"];
         self.limit = [coder decodeIntegerForKey:@"limit"];
         self.result = [coder decodeObjectForKey:@"result"];
     }
@@ -40,7 +40,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd MMMM yyyy в HH:mm"];
     NSDate *now = [[NSDate alloc] init];
-    self.date = [formatter stringFromDate:now];
+    _date = [formatter stringFromDate:now];
 }
 
 @end

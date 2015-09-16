@@ -33,6 +33,12 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.textView.text = @"";
+    self.textField.text = @"";
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -83,68 +89,65 @@
 }
 
 - (void)generateNumbersForLimit:(NSInteger)limit {
+    if (self.textView.text.length) {
+        return;
+    }
     if (limit > 1) {
-        self.textView.text = nil;
         [self.textField resignFirstResponder];
         [self.indicatorView startAnimating];
         self.generateButton.enabled = NO;
-
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             NSMutableArray * result = [[NSMutableArray alloc] init];
-            BOOL needGenerated = YES;
+            NSString *resultText = nil;
             BOOL more = NO;
             NSInteger counter = 1;
             
             NSInteger blockLimit = limit;
             
-            HistoryItem *item = [[HistoryManager sharedInstance] cacheDataForLimit:limit];
-            if (item) {
-                if (limit == item.limit) {
-                    [result addObjectsFromArray:item.result];
-                    needGenerated = NO;
+            HistoryItem *cache = [[HistoryManager sharedInstance] getChache];
+            if (cache) {
+                if (limit >= cache.limit) {
+                    counter = limit - (limit - cache.limit);
+                    [result addObjectsFromArray:cache.result];
                 }
-                else {
-                    if (limit > item.limit) {
-                        counter = limit - (limit - item.limit);
-                        [result addObjectsFromArray:item.result];
-                    }
-                    else if (limit < item.limit) {
-//                        this not correct work, need code refactoring
+                else if (limit <= cache.limit) {
+                    if (cache.limit - limit < limit) {
                         counter = limit;
-                        blockLimit = item.limit;
+                        blockLimit = cache.limit;
                         more = YES;
-//                        ==========
                     }
                 }
             }
             
-            if (needGenerated) {
-                for (NSInteger i = counter; i < blockLimit; i++) {
+            for (NSInteger i = counter; i < blockLimit; i++) {
+                NSInteger repeats = 0;
+                
+                for (int c = 1; c <= i; c++) {
                     
-                    NSInteger repeats = 0;
-                    
-                    for (int c = 1; c <= i; c++) {
-                        if (i%c == 0 || i%c == i) {
-                            repeats++;
-                            if (repeats > 2) {
-                                break;
-                            }
+                    if (i%c == 0 || i%c == i) {
+                        repeats++;
+                        if (repeats > 2) {
+                            break;
                         }
                     }
-                    
-                    if (repeats == 2) {
+                    if (c > sqrt(blockLimit) && repeats < 2) {
                         [result addObject:@(i)];
+                        break;
                     }
+                }
+                
+                if (repeats == 2) {
+                    [result addObject:@(i)];
                 }
             }
             
             if (more) {
-                NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:[item.result mutableCopy]];
+                NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:[cache.result mutableCopy]];
                 
                 NSInteger resultCount = [result count] > 1 ? [result count] : 0;
-                NSInteger originalCount = [item.result count];
+                NSInteger originalCount = [cache.result count];
                 NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(originalCount - resultCount, resultCount)];
                 
                 [temp removeObjectsAtIndexes:set];
@@ -152,9 +155,12 @@
                 result = temp;
             }
             
+            [[HistoryManager sharedInstance] addToHistory:[HistoryItem itemWithLimit:limit result:result]];
+            resultText = [result componentsJoinedByString:@", "];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[HistoryManager sharedInstance] addToHistory:[HistoryItem itemWithLimit:limit result:result]];
-                self.textView.text = [result componentsJoinedByString:@", "];
+                
+                self.textView.text = resultText;
                 self.textView.contentOffset = CGPointZero;
                 [self.indicatorView stopAnimating];
                 self.generateButton.enabled = YES;
@@ -167,6 +173,11 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if (self.textView.text.length) {
+        self.textView.text = @"";
+    }
+    
     self.textView.text = nil;
     return ([[string lowercaseString] rangeOfString:@"[^0-9]" options:NSRegularExpressionSearch].location == NSNotFound);
     

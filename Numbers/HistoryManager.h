@@ -19,6 +19,10 @@
 - (void)addToHistory:(HistoryItem *)item;
 - (void)clearHistory;
 - (void)removeItem:(HistoryItem *)item;
-- (HistoryItem *)cacheDataForLimit:(NSInteger)limit;
+//- (HistoryItem *)cacheDataForLimit:(NSInteger)limit;
+
+- (void)updateCacheForLimit:(NSInteger)limit result:(NSArray *)result;
+- (HistoryItem *)getChache;
+- (void)clearCache;
 
 @end

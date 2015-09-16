@@ -10,7 +10,7 @@
 
 @interface HistoryItem : NSObject <NSCoding>
 
-@property (copy, nonatomic) NSString *date;
+@property (copy, nonatomic, readonly) NSString *date;
 @property (nonatomic) NSInteger limit;
 @property (strong, nonatomic) NSArray *result;
 
