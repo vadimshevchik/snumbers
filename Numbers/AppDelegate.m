@@ -2,8 +2,8 @@
 //  AppDelegate.m
 //  Numbers
 //
-//  Created by Vadim Shevchik on 14.09.15.
-//  Copyright (c) 2015 vadimshevchik. All rights reserved.
+//  Created by Vadim Shevchik on 21.09.15.
+//  Copyright © 2015 vadimshevchik. All rights reserved.
 //
 
 #import "AppDelegate.h"

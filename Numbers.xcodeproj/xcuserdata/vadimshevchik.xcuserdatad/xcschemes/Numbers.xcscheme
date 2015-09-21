@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0640"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,69 +14,48 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F562F1151BA72F3B005A859A"
+               BlueprintIdentifier = "F576A3F41BB07569008F13E1"
                BuildableName = "Numbers.app"
                BlueprintName = "Numbers"
-               ReferencedContainer = "container:Numbers.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F562F12E1BA72F3E005A859A"
-               BuildableName = "NumbersTests.xctest"
-               BlueprintName = "NumbersTests"
                ReferencedContainer = "container:Numbers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Debug">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F562F12E1BA72F3E005A859A"
-               BuildableName = "NumbersTests.xctest"
-               BlueprintName = "NumbersTests"
-               ReferencedContainer = "container:Numbers.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F562F1151BA72F3B005A859A"
+            BlueprintIdentifier = "F576A3F41BB07569008F13E1"
             BuildableName = "Numbers.app"
             BlueprintName = "Numbers"
             ReferencedContainer = "container:Numbers.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F562F1151BA72F3B005A859A"
+            BlueprintIdentifier = "F576A3F41BB07569008F13E1"
             BuildableName = "Numbers.app"
             BlueprintName = "Numbers"
             ReferencedContainer = "container:Numbers.xcodeproj">
@@ -86,16 +65,16 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F562F1151BA72F3B005A859A"
+            BlueprintIdentifier = "F576A3F41BB07569008F13E1"
             BuildableName = "Numbers.app"
             BlueprintName = "Numbers"
             ReferencedContainer = "container:Numbers.xcodeproj">

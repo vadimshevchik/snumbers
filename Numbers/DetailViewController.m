@@ -38,7 +38,9 @@
 
 - (void)deleteAction:(UIButton *)button {
     [[HistoryManager sharedInstance] removeItem:self.item];
+    self.navigationItem.title = @"";
     self.textView.text = nil;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)parseItem {

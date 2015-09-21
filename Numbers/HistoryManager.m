@@ -21,9 +21,8 @@ static NSString *const nCacheResult = @"nCacheResult";
 @implementation HistoryManager
 
 + (instancetype)sharedInstance {
-    static dispatch_once_t oncePredicate = 0;
-    
-    __strong static HistoryManager *_sharedManager = nil;
+    static dispatch_once_t oncePredicate;
+    static HistoryManager *_sharedManager = nil;
     
     dispatch_once(&oncePredicate, ^{
         _sharedManager = [[self alloc] init];
